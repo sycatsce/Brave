@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<ruleset name="Brave">
+    <description> Règle de formattage </description>
+
+    <arg name="colors"/>
+    <arg value="p"/>
+
+    <file>src</file>
+    <file>tests</file>
+    <file>public/index.php</file>
+
+    <rule ref="PSR2"></rule>
+</ruleset>
