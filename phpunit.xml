@@ -1,4 +1,4 @@
-<phpunit>
+<phpunit boostrap=".\vendor\autoload.php">
   <testsuites>
     <testsuite name="Brave">
       <directory>tests</directory>

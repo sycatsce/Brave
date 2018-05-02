@@ -9,6 +9,18 @@ use GuzzleHttp\Psr7\Response;
 class App
 {
 
+    private $modules = [];
+
+    /**
+     * App constructor
+     * @param string[] $modules liste des modules à charger
+     */
+    public function __construct(array $modules = [])
+    {
+        foreach($modules as $module){
+            $this->modules[] = new $module();
+        }
+    }
     public function run(ServerRequestInterface $request): ResponseInterface
     {
 
