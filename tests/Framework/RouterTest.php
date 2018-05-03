@@ -7,7 +7,6 @@ use GuzzleHttp\Psr7\Request;
 use Framework\Router;
 use GuzzleHttp\Psr7\ServerRequest;
 
-
 class RouterTest extends TestCase
 {
     /**
@@ -23,7 +22,9 @@ class RouterTest extends TestCase
     public function testGetMethod()
     {
         $request = new ServerRequest('GET', '/home');
-        $this->router->get('/home', function () { return 'homescreen'; }, 'home');
+        $this->router->get('/home', function () {
+            return 'homescreen';
+        }, 'home');
         $route = $this->router->match($request);
         $this->assertEquals('home', $route->getName());
         $this->assertEquals('homescreen', call_user_func($route->getCallable(), [$request]));
@@ -32,20 +33,35 @@ class RouterTest extends TestCase
     public function testGetMethodWhenURLDoesNotExists()
     {
         $request = new ServerRequest('GET', '/home');
-        $this->router->get('/oof', function () { return 'homescreen'; }, 'home');
+        $this->router->get('/oof', function () {
+            return 'homescreen';
+        }, 'home');
         $route = $this->router->match($request);
-        $this->assertEquals(null, $route->getName());
+        $this->assertEquals(null, $route);
     }
 
     public function testGetMethodWithParams()
     {
         $request = new ServerRequest('GET', '/home/mon-slug-8');
-        $this->router->get('/home/{slug:[a-z0-9\-]+}-{id:\d+}', function () { return 'homescreen param'; }, 'home.param');
-        $this->router->get('/home', function () { return 'homescreen'; }, 'home');
+        $this->router->get('/home/{slug:[a-z0-9\-]+}-{id:\d+}', function () {
+            return 'homescreen param';
+        }, 'home.param');
+        $this->router->get('/home', function () {
+            return 'homescreen';
+        }, 'home');
         $route = $this->router->match($request);
         $this->assertEquals('home.param', $route->getName());
         $this->assertEquals('homescreen param', call_user_func($route->getCallable(), [$request]));
         $this->assertEquals(['slug' => 'mon-slug', 'id' => '8'], $route->getParamaters());
     }
 
+    public function testGenerateUri()
+    {
+        $this->router->get('/home/{slug:[a-z0-9\-]+}-{id:\d+}', function () {
+            return 'homescreen param';
+        }, 'home.param');
+
+        $uri = $this->router->generateUri('home.param', ['slug' => 'character', 'id' => '29']);
+        $this->assertEquals('/home/character-29', $uri);
+    }
 }

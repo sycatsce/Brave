@@ -21,7 +21,7 @@ class Router
 
     public function __construct()
     {
-        $this->router = new FastRouteRouter();    
+        $this->router = new FastRouteRouter();
     }
 
     /**
@@ -42,10 +42,19 @@ class Router
     public function match(ServerRequestInterface $request): ?Route
     {
         $result = $this->router->match($request);
-        return new Route(
-            $result->getMatchedRouteName(),
-            $result->getMatchedMiddleware(),
-            $result->getMatchedParams()
-        );
+
+        if ($result->isSuccess()) {
+            return new Route(
+                $result->getMatchedRouteName(),
+                $result->getMatchedRoute()->getMiddleware()->getCallable(),
+                $result->getMatchedParams()
+            );
+        }
+        return null;
+    }
+
+    public function generateUri(string $routeName, array $params) : ?string
+    {
+        return $this->router->generateUri($routeName, $params);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Framework\Router;
 
-
 /**
  * Class Route
  * Matched routes

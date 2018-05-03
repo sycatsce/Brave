@@ -6,7 +6,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class MiddlewareApp implements MiddlewareInterface{
+class MiddlewareApp implements MiddlewareInterface
+{
 
     /**
      * @var callable
@@ -27,5 +28,4 @@ class MiddlewareApp implements MiddlewareInterface{
     {
         //Implement the process
     }
-
 }

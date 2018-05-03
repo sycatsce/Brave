@@ -17,8 +17,9 @@ class App
      */
     public function __construct(array $modules = [])
     {
-        foreach($modules as $module){
-            $this->modules[] = new $module();
+        $router = new Router();
+        foreach ($modules as $module) {
+            $this->modules[] = new $module($router);
         }
     }
     public function run(ServerRequestInterface $request): ResponseInterface
