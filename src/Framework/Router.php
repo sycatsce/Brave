@@ -7,6 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use League\Route\RouteCollection;
 use Zend\Expressive\Router\FastRouteRouter;
 use Zend\Expressive\Router\Route as ZendRoute;
+use Framework\Router\MiddlewareApp;
 
 /**
  * Registers and matches routes
@@ -14,7 +15,7 @@ use Zend\Expressive\Router\Route as ZendRoute;
 class Router
 {
     /**
-     * @var RouteCollection
+     * @var FastRouteRouter
      */
     private $router;
 
@@ -22,6 +23,7 @@ class Router
     {
         $this->router = new FastRouteRouter();    
     }
+
     /**
      * @param string path
      * @param callable $callable
@@ -29,7 +31,7 @@ class Router
      */
     public function get(string $path, callable $callable, string $name)
     {
-        $route = new ZendRoute($path, $callable, ['GET'], $name);
+        $route = new ZendRoute($path, new MiddlewareApp($callable), ['GET'], $name);
         $this->router->addRoute($route);
     }
 
@@ -39,7 +41,6 @@ class Router
      */
     public function match(ServerRequestInterface $request): ?Route
     {
-
         $result = $this->router->match($request);
         return new Route(
             $result->getMatchedRouteName(),

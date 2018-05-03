@@ -16,7 +16,7 @@ class Route
     private $name;
 
     /**
-     * @var callable
+     * @var Callable
      */
     private $callable;
 
