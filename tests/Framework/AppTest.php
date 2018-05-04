@@ -8,6 +8,7 @@ use GuzzleHttp\Psr7\ServerRequest;
 use App\Characters\Module as CharactersModule;
 use GuzzleHttp\Psr7\Response;
 use Tests\Framework\Modules\ErroredModule;
+use Framework\Renderer;
 
 class AppTest extends TestCase
 {
@@ -23,7 +24,6 @@ class AppTest extends TestCase
 
     /*public function testHomePage()
     {
-
         $app = new App();
         $request = new ServerRequest('GET', '/home');
         $response = $app->run($request);
@@ -31,7 +31,7 @@ class AppTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
     }*/
 
-    public function testCharactersPage()
+    /*public function testCharactersPage()
     {
         $app = new App([
             CharactersModule::class
@@ -44,14 +44,6 @@ class AppTest extends TestCase
         $requestChar = new ServerRequest('GET', '/brave/character/ichigo-29');
         $responseChar = $app->run($requestChar);
         $this->assertContains('<h1> Character 29 : ichigo</h1>', (string)$responseChar->getBody());
-    }
-
-    /*public function testNoResponseSent(){
-
-        $app = new App([
-            ErroredModule::class
-        ]);
-
     }*/
 
     public function test404error()

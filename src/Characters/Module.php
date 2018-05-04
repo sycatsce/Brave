@@ -14,9 +14,9 @@ class Module
      */
     private $renderer;
 
-    public function __construct(Router $router)
+    public function __construct(Router $router, Renderer $renderer)
     {
-        $this->renderer = new Renderer();
+        $this->renderer = $renderer;
         $this->renderer->addPath('characters', __DIR__ . '/views');
 
         $router->get('/brave/characters', [$this, 'braveCharacters'], 'brave.characters');
@@ -30,6 +30,6 @@ class Module
 
     public function characterShow(ServerRequestInterface $request): string
     {
-        return $this->renderer->render('@characters/show');
+        return $this->renderer->render('@characters/show', $request->getAttributes());
     }
 }
