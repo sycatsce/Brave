@@ -52,7 +52,7 @@ class RouterTest extends TestCase
         $route = $this->router->match($request);
         $this->assertEquals('home.param', $route->getName());
         $this->assertEquals('homescreen param', call_user_func($route->getCallable(), [$request]));
-        $this->assertEquals(['slug' => 'mon-slug', 'id' => '8'], $route->getParamaters());
+        $this->assertEquals(['slug' => 'mon-slug', 'id' => '8'], $route->getParameters());
     }
 
     public function testGenerateUri()

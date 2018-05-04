@@ -3,9 +3,10 @@
 require "../vendor/autoload.php";
 use Framework\App;
 use GuzzleHttp\Psr7\ServerRequest;
+use App\Characters\Module as CharacterModule;
 
 $app = new App([
-    HomeModule::class
+    CharacterModule::class
 ]);
 
 $response = $app->run(ServerRequest::fromGlobals());

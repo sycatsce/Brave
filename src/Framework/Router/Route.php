@@ -52,7 +52,7 @@ class Route
      * Get URL parameters
      * @return string[]
      */
-    public function getParamaters(): array
+    public function getParameters(): array
     {
         return $this->parameters;
     }
