@@ -14,7 +14,6 @@ class AppTest extends TestCase
 
     public function testRedirectTrailingSlash()
     {
-
         $app = new App();
         $request = new ServerRequest('GET', '/demoslash/');
         $response = $app->run($request);

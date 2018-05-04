@@ -5,23 +5,31 @@ use Framework\Router;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Psr7\Response;
+use Framework\Renderer;
 
 class Module
 {
+    /**
+     * @var Renderer
+     */
+    private $renderer;
 
     public function __construct(Router $router)
     {
+        $this->renderer = new Renderer();
+        $this->renderer->addPath('characters', __DIR__ . '/views');
+
         $router->get('/brave/characters', [$this, 'braveCharacters'], 'brave.characters');
         $router->get('/brave/character/{name:[a-z\-]+}-{id:\d+}', [$this, 'characterShow'], 'character.show');
     }
 
-    public function braveCharacters(ServerRequestInterface $request): ResponseInterface
+    public function braveCharacters(ServerRequestInterface $request): string
     {
-        return new Response(200, [], '<h1> Every characters </h1>');
+        return $this->renderer->render('@characters/index');
     }
 
-    public function characterShow(ServerRequestInterface $request): Response
+    public function characterShow(ServerRequestInterface $request): string
     {
-        return new Response(200, [], '<h1> Character '.$request->getAttribute('id').' : ' . $request->getAttribute('name') . '</h1>');
+        return $this->renderer->render('@characters/show');
     }
 }
