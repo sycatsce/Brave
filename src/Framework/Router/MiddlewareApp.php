@@ -10,16 +10,16 @@ class MiddlewareApp implements MiddlewareInterface
 {
 
     /**
-     * @var callable
+     * @var callable|string
      */
     private $callable;
 
-    public function __construct(callable $callable)
+    public function __construct($callable)
     {
         $this->callable = $callable;
     }
 
-    public function getCallable(): callable
+    public function getCallable()
     {
         return $this->callable;
     }
