@@ -4,9 +4,10 @@ require "../vendor/autoload.php";
 use Framework\App;
 use GuzzleHttp\Psr7\ServerRequest;
 use App\Characters\Module as CharacterModule;
-use Framework\Renderer;
+use Framework\Renderer\PHPRenderer;
+use Framework\Renderer\TwigRenderer;
 
-$renderer = new Renderer();
+$renderer = new TwigRenderer(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'views');
 $renderer->addPath(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'views');
 
 $app = new App([

@@ -1,8 +1,10 @@
 <?php
 
-namespace Framework;
+namespace Framework\Renderer;
 
-class Renderer
+use Framework\Renderer\RendererInterface;
+
+class PHPRenderer implements RendererInterface
 {
     const DEFAULT_NAMESPACE = '__MAIN';
 
@@ -17,6 +19,12 @@ class Renderer
      */
     private $globals = [];
     
+    public function __construct(?string $defaultPath = null)
+    {
+        if (!is_null($defaultPath)) {
+            $this->addPath($defaultPath);
+        }
+    }
     /**
      * Add a path to include views
      * @param string $namespace
@@ -44,7 +52,7 @@ class Renderer
         if ($this->hasNamespace($view)) {
             $path = $this->replaceNamespace($view) . '.php';
         } else {
-            $path = $this->paths[self::DEFAULT_NAMESPACE] . DIRECTORY_SEPARATOR . $view . '.php';
+            $path = $this->paths[self::DEFAULT_NAMESPACE] . "/" . $view . '.php';
         }
 
         ob_start();

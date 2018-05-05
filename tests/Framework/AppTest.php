@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\ServerRequest;
 use App\Characters\Module as CharactersModule;
 use GuzzleHttp\Psr7\Response;
 use Tests\Framework\Modules\ErroredModule;
-use Framework\Renderer;
+use Framework\Renderer\PHPRenderer;
 
 class AppTest extends TestCase
 {
