@@ -12,6 +12,10 @@ class Module extends GlobalModule
 
     const DEFINITIONS = __DIR__ . '/config.php';
 
+    const MIGRATIONS = __DIR__ . '/db/migrations';
+
+    const SEEDS = __DIR__ . '/db/seeds';
+
     /**
      * @var Renderer
      */

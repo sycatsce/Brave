@@ -70,4 +70,9 @@ class App
             throw new \Exception('Unknown response');
         }
     }
+
+    public function getContainer(): ContainerInterface
+    {
+        return $this->container;
+    }
 }

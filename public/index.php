@@ -1,12 +1,13 @@
 <?php
 
-require "../vendor/autoload.php";
 use Framework\App;
 use GuzzleHttp\Psr7\ServerRequest;
 use App\Characters\Module as CharacterModule;
 use Framework\Renderer\PHPRenderer;
 use Framework\Renderer\TwigRenderer;
 use DI\ContainerBuilder;
+
+require dirname(__DIR__) . "../vendor/autoload.php";
 
 $modules = [
     CharacterModule::class
@@ -25,5 +26,7 @@ $container = $builder->build();
 
 $app = new App($container, $modules);
 
-$response = $app->run(ServerRequest::fromGlobals());
-\Http\Response\send($response);
+if (php_sapi_name() !== "cli") {
+    $response = $app->run(ServerRequest::fromGlobals());
+    \Http\Response\send($response);
+}
