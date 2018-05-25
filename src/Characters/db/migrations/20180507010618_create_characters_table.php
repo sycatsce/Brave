@@ -29,16 +29,27 @@ class CreateCharactersTable extends AbstractMigration
      */
     public function change()
     {
-
-        /*
         $this->table('characters')
         ->addColumn('name', 'string')
         ->addColumn('nickname', 'string')
-        ->addColumn('version', 'string')
+        ->addColumn('image', 'string')
+        ->addColumn('id_version', 'integer')
+        ->addColumn('id_attribute', 'integer')
+        ->addColumn('id_affiliation', 'integer')
+        ->addColumn('id_affiliation2', 'integer')
+        ->addColumn('id_soultrait', 'integer')
         ->addColumn('description', 'text', ['limit' => MysqlAdapter::TEXT_LONG ])
         ->addColumn('release_date', 'datetime')
         ->addColumn('created_at', 'datetime')
-        ->create();*/
-        //Faire le schéma de bd pour pouvoir continuer
+
+        ->addIndex(['id_attribute','id_version','id_affiliation','id_affiliation2', 'id_soultrait'])
+       
+        /*->addForeignKey('id_attribute', 'attributes', 'id', ['delete'=> 'NO_ACTION', 'update'=> 'NO_ACTION'])
+        ->addForeignKey('id_version', 'versions', 'id', ['delete'=> 'NO_ACTION', 'update'=> 'NO_ACTION'])
+        ->addForeignKey('id_affiliation', 'affiliations', 'id', ['delete'=> 'NO_ACTION', 'update'=> 'NO_ACTION'])
+        ->addForeignKey('id_affiliation2', 'affiliations', 'id', ['delete'=> 'NO_ACTION', 'update'=> 'NO_ACTION'])
+        ->addForeignKey('id_soultrait', 'soultraits', 'id', ['delete'=> 'NO_ACTION', 'update'=> 'NO_ACTION'])*/
+
+        ->save();
     }
 }
