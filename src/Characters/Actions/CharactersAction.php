@@ -51,7 +51,11 @@ class CharactersAction
 
     public function characterShow(ServerRequestInterface $request)
     {
-        $character = $this->charactersRepository->getCharacter($request->getAttribute('id'));
+        $attributes = $request->getAttributes();
+
+        $version = $this->charactersRepository->getVersion($attributes['id']);
+        $character = $this->charactersRepository->getCharacter($attributes['id']);
+
         /* If the name in the URL doesn't match the ID, redirect to the correct page */
         if (strtolower($character->name) !== $request->getAttribute('name')) {
             return $this->redirect('character.show', [
@@ -59,6 +63,8 @@ class CharactersAction
                 'id' => $character->id
             ]);
         }
-        return $this->renderer->render('@characters' . DIRECTORY_SEPARATOR . 'show', $request->getAttributes());
+
+        $attributes['version'] = $version->name;
+        return $this->renderer->render('@characters' . DIRECTORY_SEPARATOR . 'show', $attributes);
     }
 }

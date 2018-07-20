@@ -8,8 +8,9 @@
 <ul>
     {% for character in characters %}
     <li><a href="{{ path('character.show', {name: character.name|lower, id: character.id}) }}"> {{ character.name }} </a></li>
-    <i> {{ character.nickname }} </i>
+    <i> {{ character.version }} ver. </i>
     {% endfor %}
 </ul>
+
 
 {% endblock %}

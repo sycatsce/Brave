@@ -7,7 +7,6 @@ use GuzzleHttp\Psr7\Response;
 
 trait RouterHelper
 {
-
     public function redirect(string $path, array $params = []) : ResponseInterface
     {
         $uri = $this->router->generateUri($path, $params);
