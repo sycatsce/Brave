@@ -4,6 +4,9 @@ namespace App\Characters\Actions;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Framework\Renderer\RendererInterface;
+use Framework\Router;
+use Framework\Helpers\RouterHelper;
+use App\Characters\Repository\CharactersRepository;
 
 class CharactersAction
 {
@@ -12,18 +15,50 @@ class CharactersAction
      * @var RendererInterface
      */
     private $renderer;
-    
-    public function __construct(RendererInterface $renderer)
+
+    /**
+     * @var Router
+     */
+    private $router;
+
+    /**
+     * @var CharactersRepository
+     */
+    private $charactersRepository;
+
+    use RouterHelper;
+
+    public function __construct(RendererInterface $renderer, Router $router, CharactersRepository $charactersRepository)
     {
         $this->renderer = $renderer;
+        $this->router = $router;
+        $this->charactersRepository = $charactersRepository;
     }
 
     public function __invoke(ServerRequestInterface $request)
     {
-        return $this->showCharacters();
+        if ($request->getAttribute('id')) {
+            return $this->characterShow($request);
+        } else {
+            return $this->showCharacters();
+        }
     }
     public function showCharacters(): string
     {
-        return $this->renderer->render('@characters' . DIRECTORY_SEPARATOR . 'index');
+        $characters = $this->charactersRepository->getCharacters();
+        return $this->renderer->render('@characters' . DIRECTORY_SEPARATOR . 'index', compact('characters'));
+    }
+
+    public function characterShow(ServerRequestInterface $request)
+    {
+        $character = $this->charactersRepository->getCharacter($request->getAttribute('id'));
+        /* If the name in the URL doesn't match the ID, redirect to the correct page */
+        if (strtolower($character->name) !== $request->getAttribute('name')) {
+            return $this->redirect('character.show', [
+                'name' => strtolower($character->name),
+                'id' => $character->id
+            ]);
+        }
+        return $this->renderer->render('@characters' . DIRECTORY_SEPARATOR . 'show', $request->getAttributes());
     }
 }

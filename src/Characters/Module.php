@@ -27,7 +27,7 @@ class Module extends GlobalModule
         $this->renderer->addPath('characters', __DIR__ . '/views');
 
         $router->get($prefix, CharactersAction::class, 'brave.characters');
-        $router->get($prefix.'/{name:[a-z\-]+}-{id:\d+}', [$this, 'characterShow'], 'character.show');
+        $router->get($prefix.'/{name:[a-z\-]+}-{id:\d+}', CharactersAction::class, 'character.show');
     }
 
     public function characterShow(ServerRequestInterface $request): string
