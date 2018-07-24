@@ -25,7 +25,8 @@ class VersionsSeed extends AbstractSeed
             [ "id" => 7, "name" => "Swimsuit"],
             [ "id" => 8, "name" => "Tag Team"],
             [ "id" => 9, "name" => "The Past"],
-            [ "id" => 10, "name" => "Final Getsugatensho"]
+            [ "id" => 10, "name" => "Final Getsugatensho"],
+            [ "id" => 11, "name" => "4th fusion"]
         ];
 
         $posts = $this->table('versions');

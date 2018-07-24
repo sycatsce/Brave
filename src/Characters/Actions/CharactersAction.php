@@ -57,14 +57,12 @@ class CharactersAction
         $character = $this->charactersRepository->getCharacter($attributes['id']);
 
         /* If the name in the URL doesn't match the ID, redirect to the correct page */
-        if (strtolower($character->name) !== $request->getAttribute('name')) {
+        if (strtolower($character['name']) !== $request->getAttribute('name')) {
             return $this->redirect('character.show', [
-                'name' => strtolower($character->name),
-                'id' => $character->id
+                'name' => strtolower($character['name']),
+                'id' => $character['id']
             ]);
         }
-
-        $attributes['version'] = $version->name;
-        return $this->renderer->render('@characters' . DIRECTORY_SEPARATOR . 'show', $attributes);
+        return $this->renderer->render('@characters' . DIRECTORY_SEPARATOR . 'show', $character);
     }
 }

@@ -1,16 +1,17 @@
 {% extends 'layout.twig' %}
 
-{% block title "Characters - Brave" %}
+{% block title "Characters -" %}
 
-{%block body %}
-<h1> Every characters </h1>
-
-<ul>
-    {% for character in characters %}
-    <li><a href="{{ path('character.show', {name: character.name|lower, id: character.id}) }}"> {{ character.name }} </a></li>
-    <i> {{ character.version }} ver. </i>
-    {% endfor %}
-</ul>
-
-
+{% block content %}
+	<div id="content">
+        {% for character in characters %}
+            <div class="post">
+                <h2 class="title"><a href="{{ path('character.show', {name: character.name|lower, id: character.id}) }}"> {{ character.name }} </a></h2>
+                <span class="date"> {{ character.attributes.version }} ver.</span>
+                <div style="clear: both;">&nbsp;</div>
+                <img src="http://placehold.it/100x100"/>
+            </div>
+        {% endfor %}
+        <div style="clear: both;">&nbsp;</div>
+    </div>
 {% endblock %}

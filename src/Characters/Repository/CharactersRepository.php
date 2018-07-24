@@ -2,7 +2,7 @@
 
 namespace App\Characters\Repository;
 
-use Framework\Helpers\CharacterRepositoryHelper;
+use Framework\Helpers\CharactersRepositoryHelper;
 use Framework\Helpers\RouterHelper;
 
 
@@ -14,33 +14,30 @@ class CharactersRepository
      */
     private $pdo;
 
-    use CharacterRepositoryHelper;
+    use CharactersRepositoryHelper;
 
     public function __construct(\PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
-    public function getCharacter(int $id) : \stdClass
+    public function getCharacter(int $id) : array
     {
         $query = $this->pdo->prepare("SELECT * FROM characters WHERE id = ?");
         $query->execute([$id]);
-        $character = $query->fetch(\PDO::FETCH_OBJ);
+        $character = $query->fetch(\PDO::FETCH_ASSOC);
+        $attributes = $this->retrieveAttributes($character);
+        $character['attributes'] = $attributes;
         return $character;
     }
 
     public function getCharacters(): array
     {
-        $characters = $this->pdo->query("SELECT * FROM characters")->fetchAll(\PDO::FETCH_OBJ);
-        $this->retrieveAttributes($characters);
-        foreach ($characters as $key=>$character){
-            $characters[$key]->version = $this->getVersion($character->id);
-            $characters[$key]->affiliation = $this->getAffiliation($character->id);
-
+        $characters = $this->pdo->query("SELECT * FROM characters")->fetchAll(\PDO::FETCH_ASSOC);
+        foreach($characters as $key=>$character){
+            $attributes = $this->retrieveAttributes($character);
+            $characters[$key]['attributes'] = $attributes;
         }
-        //dump($characters);
-
-        //die;
         return $characters;
     }
 
@@ -52,11 +49,34 @@ class CharactersRepository
         return $version->name;
     }
 
-    public function getAffiliation(int $id): string
+    public function getAffiliation(int $id, int $affiliationNb = 1): string
     {
-        $query = $this->pdo->prepare("SELECT name FROM affiliations WHERE id = (SELECT id_affiliation FROM characters WHERE id = ?)");
+        if ($affiliationNb == 1){
+            $query = $this->pdo->prepare("SELECT name FROM affiliations WHERE id = (SELECT id_affiliation FROM characters WHERE id = ?)");
+            $query->execute([$id]);
+            $affiliation = $query->fetch(\PDO::FETCH_OBJ);
+            return $affiliation->name;
+        } else if ($affiliationNb == 2){
+            $query = $this->pdo->prepare("SELECT name FROM affiliations WHERE id = (SELECT id_affiliation2 FROM characters WHERE id = ?)");
+            $query->execute([$id]);
+            $affiliation = $query->fetch(\PDO::FETCH_OBJ);
+            return $affiliation->name;
+        }
+    }
+
+    public function getSoulTrait(int $id): string
+    {
+        $query = $this->pdo->prepare("SELECT effet FROM soultraits WHERE id = (SELECT id_soultrait FROM characters WHERE id = ?)");
         $query->execute([$id]);
-        $affiliation = $query->fetch(\PDO::FETCH_OBJ);
-        return $affiliation->name;
+        $soultrait = $query->fetch(\PDO::FETCH_OBJ);
+        return $soultrait->effet;
+    }
+
+    public function getAttribute(int $id): string
+    {
+        $query = $this->pdo->prepare("SELECT attribute FROM attributes WHERE id = (SELECT id_attribute FROM characters WHERE id = ?)");
+        $query->execute([$id]);
+        $attribute = $query->fetch(\PDO::FETCH_OBJ);
+        return $attribute->attribute;
     }
 }

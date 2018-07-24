@@ -39,12 +39,12 @@ class App
 
         $uri = $request->getUri()->getPath();
 
-        if (!empty($uri) && $uri[-1] === "/") {
+        /*if (!empty($uri) && $uri[-1] === "/") {
             $response = (new Response())
             ->withStatus(301)
             ->withHeader('Location', substr($uri, 0, -1));
             return $response;
-        }
+        }*/
 
         $route = $this->container->get(Router::class)->match($request);
         if (is_null($route)) {

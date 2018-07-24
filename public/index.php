@@ -3,6 +3,7 @@
 use Framework\App;
 use GuzzleHttp\Psr7\ServerRequest;
 use App\Characters\Module as CharacterModule;
+use App\Admin\Module as AdminModule;
 use Framework\Renderer\PHPRenderer;
 use Framework\Renderer\TwigRenderer;
 use DI\ContainerBuilder;
@@ -10,11 +11,13 @@ use DI\ContainerBuilder;
 require dirname(__DIR__) . "../vendor/autoload.php";
 
 $modules = [
-    CharacterModule::class
+    CharacterModule::class,
+    AdminModule::class,
 ];
 
 $builder = new ContainerBuilder();
 $builder->addDefinitions(dirname(__DIR__) . '/config.php');
+
 foreach ($modules as $module) {
     if ($module::DEFINITIONS) {
         $builder->addDefinitions($module::DEFINITIONS);
