@@ -22,6 +22,7 @@ class AffiliationsSeed extends AbstractSeed
             [ "id" => 4, "name" => "Human" ],
             [ "id" => 5, "name" => "Captain" ],
             [ "id" => 6, "name" => "Espada" ],
+            [ "id" => 7, "name" => "None" ]
         ];
 
         $posts = $this->table('affiliations');

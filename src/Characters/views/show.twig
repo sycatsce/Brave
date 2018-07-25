@@ -3,32 +3,24 @@
 {% block title name|capitalize ~ " -" %}
 {% block description description %}
 
-{%block body %}
-
-<h1> Character : {{ name }} </h1> 
-{{ attributes.version }} ver. <br>
-{{ attributes.affiliation }} {% if attributes.affiliation2 is defined %} - {{ attributes.affiliation2 }} {% endif %}
-{% endblock %}
-
 {% block content %}
-	<div id="content">
         <div class="character">
             <div class="left-part">
-                <div style="float:left; margin-right:10px;">
+
+                <div style="float:left; margin-right:40px;">
                     <h1 class="title">{{ name }}</h1>
-                    <span class="date"> {{ attributes.version }} ver.</span>
+                    <span class="date"> {% if attributes.version is defined %} {{ attributes.version }} ver. {% endif %}</span>
                 </div>
-                <div style="float:left; margin-right:5px;">
-                    <img src="http://placehold.it/100x100"/>
-                </div>
+
                 <div style="clear: both;">&nbsp;</div>
-                <img src="http://placehold.it/300x500"/>
+
+                <img style="border:solid; width:742px; height:500px;" src="/assets/images/characters/{{ image }}"/>
             </div>
 
             <div class="middle-part">
-                <div style="text-align:center; float:left; margin-right:10px;">
+                <div style="float:left; text-align:center;">
                     <h2> Stats </h2>
-                    <table>
+                    <table cellspacing="5">
                         <tr>
                             <th> STA </th>
                             <th> ATQ </th>
@@ -37,37 +29,34 @@
                             <th> FCS </th>
                         </tr>
                         <tr>
-                            <td> 999 </td>
-                            <td> 999 </td>
-                            <td> 999 </td>
-                            <td> 999 </td>
-                            <td> 999 </td>
+                            <td> {{ attributes.stats.4.value }} </td>
+                            <td> {{ attributes.stats.0.value }} </td>
+                            <td> {{ attributes.stats.2.value }} </td>
+                            <td> {{ attributes.stats.1.value }} </td>
+                            <td> {{ attributes.stats.3.value }} </td>
                         </tr>
                     </table>
-
-                    <div style="clear: both;">&nbsp;</div>
-
+                </div>
+                <div style="float:right;">
                     <h2> Affiliation </h2> 
                     {{ attributes.affiliation}} {% if attributes.affiliation2 is defined %} - {{ attributes.affiliation2 }} {% endif %}
                     <img src="http://placehold.it/30x30"/>
+                </div>
 
                     <div style="clear: both;">&nbsp;</div>
 
+                <div style="float:left;">
                     <h2> Soul Trait </h2>
                     {{ attributes.soultrait }}
-
-                    <div style="clear: both;">&nbsp;</div>
-
-                    <p> {{ description }} <p>
+                </div>
+                <div style="float:right;">
+                    <h2> Killer </h2> {{ attributes.killer }} {% if attributes.killer2 is defined %} - {{ attributes.killer2 }} {% endif %}
                 </div>
                 
-                <div style="float:left; margin-right:5px;">
-
-                </div>
                 <div style="clear: both;">&nbsp;</div>
+                <i> {{ description }} </i>
             </div>
 
         </div>
         <div style="clear: both;">&nbsp;</div>
-    </div>
 {% endblock %}

@@ -53,13 +53,12 @@ class CharactersAction
     {
         $attributes = $request->getAttributes();
 
-        $version = $this->charactersRepository->getVersion($attributes['id']);
         $character = $this->charactersRepository->getCharacter($attributes['id']);
 
         /* If the name in the URL doesn't match the ID, redirect to the correct page */
-        if (strtolower($character['name']) !== $request->getAttribute('name')) {
+        if (strtolower(preg_replace('/(&| )/', '-', $character['name'])) !== $request->getAttribute('name')) {
             return $this->redirect('character.show', [
-                'name' => strtolower($character['name']),
+                'name' => strtolower(preg_replace('/(&| )/', '-', $character['name'])),
                 'id' => $character['id']
             ]);
         }

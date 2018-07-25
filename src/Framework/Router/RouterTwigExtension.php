@@ -26,11 +26,17 @@ class RouterTwigExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction('path', [$this, 'pathFor']),
+            new \Twig_SimpleFunction('adjustName', [$this, 'adjustName'])
         ];
     }
 
     public function pathFor(string $path, array $params = []): string
     {
         return $this->router->generateUri($path, $params);
+    }
+
+    public function adjustName(string $name): string
+    {
+        return strtolower(preg_replace('/(&| )/', '-', $name));
     }
 }

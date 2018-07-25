@@ -79,4 +79,27 @@ class CharactersRepository
         $attribute = $query->fetch(\PDO::FETCH_OBJ);
         return $attribute->attribute;
     }
+
+    public function getKiller(int $id, int $killerNb = 1): string
+    {
+        if ($killerNb == 1){
+            $query = $this->pdo->prepare("SELECT name, value FROM killers WHERE id = (SELECT id_killer FROM characters WHERE id = ?)");
+            $query->execute([$id]);
+            $killer = $query->fetch(\PDO::FETCH_OBJ);
+            return $killer->value . ' ' . $killer->name;
+        } else if ($killerNb == 2){
+            $query = $this->pdo->prepare("SELECT name, value FROM killers WHERE id = (SELECT id_killer2 FROM characters WHERE id = ?)");
+            $query->execute([$id]);
+            $killer = $query->fetch(\PDO::FETCH_OBJ);
+            return $killer->value . ' ' . $killer->name;
+        }
+    }
+
+    public function getStats(int $id)
+    {
+        $query = $this->pdo->prepare("SELECT name, value FROM statsnames, statsvalues WHERE statsvalues.id_charaStats = ? AND statsvalues.id_statsNames = statsnames.id");
+        $query->execute([$id]);
+        $stats = $query->fetchAll(\PDO::FETCH_ASSOC);
+        return $stats;
+    }
 }

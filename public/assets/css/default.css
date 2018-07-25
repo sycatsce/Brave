@@ -161,30 +161,30 @@ hr {
 }
 
 .left-part{
-	width:500px;
+	width:800px;
 	font-size: 1.5em;
 }
 
 .middle-part{
+	width:500px;
 	font-size: 1.5em;
-	margin-top:100px;
+	margin-top:6%;
 }
 .character {
 	width: 100%;
-	height: 600px;
+	height: 650px;
 	overflow: hidden;
 	padding: 50px;
-	margin-bottom: 40px;
-	border: 1px solid #E7EBED;
-	border-radius: 8px;
 	background: #FFF;
+	border: 1px solid rgb(0, 0, 0);
+	border-radius: 8px;
 	margin: 20px;
 	display: flex;
     flex-wrap: wrap;
 }
 
 .post {
-	width: 200px;
+	width: 20%;
 	overflow: hidden;
 	padding: 20px;
 	margin-bottom: 40px;

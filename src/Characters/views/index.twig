@@ -6,8 +6,9 @@
 	<div id="content">
         {% for character in characters %}
             <div class="post">
-                <h2 class="title"><a href="{{ path('character.show', {name: character.name|lower, id: character.id}) }}"> {{ character.name }} </a></h2>
-                <span class="date"> {{ character.attributes.version }} ver.</span>
+                <h2 class="title"><a href="{{ path('character.show', {name: adjustName(character.name), id: character.id}) }}"> {{ character.name }} </a> 
+                <img src='/assets/images/attributes/{{ character.attributes.attribute|lower }}.png' style='width:20px; height:20px;'/></h2>
+                <span class="date"> {% if character.attributes.version is defined %} {{ character.attributes.version }} ver. {% else %} <div style="clear: both;">&nbsp;</div> {% endif %}</span>
                 <div style="clear: both;">&nbsp;</div>
                 <img src="http://placehold.it/100x100"/>
             </div>
