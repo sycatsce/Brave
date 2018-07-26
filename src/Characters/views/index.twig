@@ -15,4 +15,7 @@
         {% endfor %}
         <div style="clear: both;">&nbsp;</div>
     </div>
+    <div class='pagerfanta'>
+    {{ paginate(characters, 'brave.characters') }}
+    </div>
 {% endblock %}

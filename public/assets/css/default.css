@@ -161,15 +161,33 @@ hr {
 }
 
 .left-part{
-	width:800px;
+	width:45%;
 	font-size: 1.5em;
 }
 
-.middle-part{
-	width:500px;
+.right-part{
+	width:50%;
 	font-size: 1.5em;
 	margin-top:6%;
+	display: flex;
+    flex-wrap: wrap;
 }
+
+.right-part div{
+	width: 50%;
+	height:25%;
+	text-align:center;
+}
+
+.right-part i{
+	padding: 5%;
+}
+
+.right-part table{
+    margin-left:auto; 
+    margin-right:auto;
+}
+
 .character {
 	width: 100%;
 	height: 650px;
@@ -182,6 +200,45 @@ hr {
 	display: flex;
     flex-wrap: wrap;
 }
+
+.pagerfanta {
+
+}
+
+.pagerfanta a,
+.pagerfanta span {
+    display: inline-block;
+    border: 1px solid rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    margin-right: .2em;
+	padding: .25em .35em;
+	background: rgb(255, 255, 255);
+
+}
+
+.pagerfanta a {
+    text-decoration: none;
+}
+
+.pagerfanta a:hover {
+    background: rgb(99, 99, 99);
+}
+
+.pagerfanta .dots {
+    border-width: 0;
+}
+
+.pagerfanta .current {
+    background: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+.pagerfanta .disabled {
+    border-color: #ccf;
+    color: #ccf;
+}
+
+
 
 .post {
 	width: 20%;

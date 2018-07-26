@@ -7,6 +7,8 @@ use Framework\Renderer\RendererInterface;
 use Framework\Router;
 use Framework\Helpers\RouterHelper;
 use App\Characters\Repository\CharactersRepository;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
 
 class CharactersAction
 {
@@ -40,28 +42,28 @@ class CharactersAction
         if ($request->getAttribute('id')) {
             return $this->characterShow($request);
         } else {
-            return $this->showCharacters();
+            return $this->showCharacters($request);
         }
     }
-    public function showCharacters(): string
+    public function showCharacters(ServerRequestInterface $request): string
     {
-        $characters = $this->charactersRepository->getCharacters();
+        $params = $request->getQueryParams();
+        $characters = $this->charactersRepository->getCharacters(4, $params['p'] ?? 1);
         return $this->renderer->render('@characters' . DIRECTORY_SEPARATOR . 'index', compact('characters'));
     }
 
     public function characterShow(ServerRequestInterface $request)
     {
         $attributes = $request->getAttributes();
-
         $character = $this->charactersRepository->getCharacter($attributes['id']);
 
         /* If the name in the URL doesn't match the ID, redirect to the correct page */
-        if (strtolower(preg_replace('/(&| )/', '-', $character['name'])) !== $request->getAttribute('name')) {
+        if (strtolower(preg_replace('/(&| )/', '-', $character->name)) !== $request->getAttribute('name')) {
             return $this->redirect('character.show', [
-                'name' => strtolower(preg_replace('/(&| )/', '-', $character['name'])),
-                'id' => $character['id']
+                'name' => strtolower(preg_replace('/(&| )/', '-', $character->name)),
+                'id' => $character->id
             ]);
         }
-        return $this->renderer->render('@characters' . DIRECTORY_SEPARATOR . 'show', $character);
+        return $this->renderer->render('@characters' . DIRECTORY_SEPARATOR . 'show', compact('character'));
     }
 }

@@ -4,6 +4,9 @@ namespace App\Characters\Repository;
 
 use Framework\Helpers\CharactersRepositoryHelper;
 use Framework\Helpers\RouterHelper;
+use App\Characters\Entity\Character;
+use Pagerfanta\Pagerfanta;
+use Framework\Database\Paginate;
 
 
 class CharactersRepository
@@ -21,24 +24,27 @@ class CharactersRepository
         $this->pdo = $pdo;
     }
 
-    public function getCharacter(int $id) : array
+    public function getCharacter(int $id) : Character
     {
         $query = $this->pdo->prepare("SELECT * FROM characters WHERE id = ?");
         $query->execute([$id]);
-        $character = $query->fetch(\PDO::FETCH_ASSOC);
-        $attributes = $this->retrieveAttributes($character);
-        $character['attributes'] = $attributes;
+        $query->setFetchMode(\PDO::FETCH_CLASS, Character::class);
+        $character = $query->fetch();
+        //$attributes = $this->retrieveAttributes($character);
+        //$character['attributes'] = $attributes;
         return $character;
     }
 
-    public function getCharacters(): array
+    public function getCharacters(int $perPage, int $currentPage): Pagerfanta
     {
-        $characters = $this->pdo->query("SELECT * FROM characters")->fetchAll(\PDO::FETCH_ASSOC);
+        $characters = $this->pdo->query("SELECT * FROM characters ORDER BY release_date DESC")->fetchAll(\PDO::FETCH_ASSOC);
         foreach($characters as $key=>$character){
             $attributes = $this->retrieveAttributes($character);
             $characters[$key]['attributes'] = $attributes;
         }
-        return $characters;
+
+        $adapter = new Paginate($this->pdo, $characters, 'SELECT count(id) FROM characters');
+        return (new Pagerfanta($adapter))->setMaxPerPage($perPage)->setCurrentPage($currentPage);
     }
 
     public function getVersion(int $id): string
@@ -100,6 +106,10 @@ class CharactersRepository
         $query = $this->pdo->prepare("SELECT name, value FROM statsnames, statsvalues WHERE statsvalues.id_charaStats = ? AND statsvalues.id_statsNames = statsnames.id");
         $query->execute([$id]);
         $stats = $query->fetchAll(\PDO::FETCH_ASSOC);
-        return $stats;
+        $res = [];
+        foreach($stats as $stat){
+            $res[strtolower( str_replace(' ', '_', $stat['name']))]  = $stat['value'];
+        }
+        return $res;
     }
 }
