@@ -16,11 +16,11 @@ class StatsNamesSeed extends AbstractSeed
     public function run()
     {
         $data = [
-            [ "id" => 1, "name" => "Attack" ],
-            [ "id" => 2, "name" => "Spiritual Pressure" ],
+            [ "id" => 1, "name" => "Stamina" ],
+            [ "id" => 2, "name" => "Attack" ],
             [ "id" => 3, "name" => "Defense" ],
-            [ "id" => 4, "name" => "Focus" ],
-            [ "id" => 5, "name" => "Stamina" ],
+            [ "id" => 4, "name" => "Spiritual Pressure" ],
+            [ "id" => 5, "name" => "Focus" ],
         ];
 
         $posts = $this->table('statsnames');

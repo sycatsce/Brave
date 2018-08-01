@@ -6,11 +6,16 @@
 	<div id="content">
         {% for character in characters %}
             <div class="post">
-                <h2 class="title"><a href="{{ path('character.show', {name: adjustName(character.name), id: character.id}) }}"> {{ character.name }} </a> 
-                <img src='/assets/images/attributes/{{ character.attributes.attribute|lower }}.png' style='width:20px; height:20px;'/></h2>
-                <span class="date"> {% if character.attributes.version is defined %} {{ character.attributes.version }} ver. {% else %} <div style="clear: both;">&nbsp;</div> {% endif %}</span>
-                <div style="clear: both;">&nbsp;</div>
-                <img src="http://placehold.it/100x100"/>
+                {% if character.id_version is not null %}
+                    <h2 class="title"><a href="{{ path('character.show', {name: adjustName(character.name), id: character.id}) }}"> {{ character.name }} </a> 
+                    <img src='/assets/images/attributes/{{ getAttribute(character.id)|lower }}.png' style='width:20px; height:20px;'/></h2>
+                    <span class="date">  {{ getVersion(character.id) }}</span>
+                    <div style="clear: both;">&nbsp;</div>
+                {% else %}
+                    <h2 class="title"><a href="{{ path('character.show', {name: adjustName(character.name), id: character.id}) }}"> {{ character.name }} </a> 
+                    <img src='/assets/images/attributes/{{ getAttribute(character.id)|lower }}.png' style='width:20px; height:20px;'/></h2>
+                    <div style="clear: both;">&nbsp;</div>
+                {% endif %}
             </div>
         {% endfor %}
         <div style="clear: both;">&nbsp;</div>

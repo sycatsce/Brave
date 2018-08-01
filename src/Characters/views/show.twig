@@ -7,14 +7,18 @@
         <div class="character">
             <div class="left-part">
 
-                <div style="float:left; margin-right:40px;">
-                    <h1 class="title">{{ character.name }}</h1>
+                <div class='character_name'>
+                    
+                    <h1 class="title">{{ character.name }}   <img src='/assets/images/attributes/{{ getAttribute(character.id)|lower }}.png' style='width:30px; height:30px;vertical-align: middle;'/></h1>
                     <span class="date"> {% if character.id_version is not null %} {{ getVersion(character.id) }} {% endif %} </span>
                 </div>
 
                 <div style="clear: both;">&nbsp;</div>
 
-                <img style="border:solid; width:742px; height:500px;" src="/assets/images/characters/{{ character.image }}l"/>
+                <img style="border:solid; width:675px; height:337px;" src="/assets/images/characters/{{ character.image|lower|replace({' ':'_'}) }}"/><br>
+                <div style="width:675px;">
+                    <i> {{ character.description }} </i>
+                </div>
             </div>
 
             <div class="right-part">
@@ -29,33 +33,37 @@
                             <th> FCS </th>
                         </tr>
                         <tr>
-                            <td> {{ getStats(character.id).stamina }} </td>
-                            <td> {{ getStats(character.id).attack }} </td>
-                            <td> {{ getStats(character.id).defense }} </td>
-                            <td> {{ getStats(character.id).focus }} </td>
-                            <td> {{ getStats(character.id).spiritual_pressure }} </td>
+                            {% for stat in getStats(character.id) %}
+                                <td> {{ stat.value }}  </td>
+                            {% endfor %}
                         </tr>
                     </table>
-                </div>
-                <div>
-                    <h2> Affiliation </h2> 
-                    {{ getAffiliation(character.id) }} {% if character.id_affiliation2 is not null %} - {{ getAffiliation(character.id, 2) }} {% endif %}
-                    <img src="http://placehold.it/30x30"/>
-                </div>
+                    <div style='height:5%;'></div>
 
+                    <h2 class='title'> Affiliation </h2>
+                        {{ getAffiliation(character.id) }} 
+                        <img style='width:30px; height:30px;vertical-align: middle;' src="/assets/images/affiliations/{{ getAffiliation(character.id)|lower|replace({' ':'_'}) }}.png"/>
+                        {% if character.id_affiliation2 is not null %}
+                            <img style='width:30px; height:30px;vertical-align: middle;' src="/assets/images/affiliations/{{ getAffiliation(character.id,2)|lower|replace({' ':'_'}) }}.png"/>
+                            {{ getAffiliation(character.id, 2) }}
+                        {% endif %}
+                    
+                    <div style='height:5%;'></div>
 
-                <div>
                     <h2> Soul Trait </h2>
                     {{ getSoulTrait(character.id) }}
-                </div>
+                    <div style='height:5%;'></div>
 
-                <div>
+
                     <h2> Killer </h2> 
-                    {{ getKiller(character.id) }} {% if character.id_killer2 is not null %} - {{ getKiller(character.id, 2) }} {% endif %}
-                    <img src="http://placehold.it/30x30"/>
+                    {{ getKiller(character.id).value }} {{ getKiller(character.id).name}}
+                    <img style='width:30px; height:30px;vertical-align: middle;' src="/assets/images/affiliations/{{ getKiller(character.id).name|lower|replace({' ':'_'}) }}.png"/>
+                    {% if character.id_killer2 is not null %}
+                        <img style='width:30px; height:30px;vertical-align: middle;' src="/assets/images/affiliations/{{ getKiller(character.id,2).name|lower|replace({' ':'_'}) }}.png"/>
+                        {{ getKiller(character.id,2).value }} {{ getKiller(character.id,2).name}}
+                    {% endif %}
                 </div>
                 
-                <i> {{ character.description }} </i>
             </div>
 
         </div>

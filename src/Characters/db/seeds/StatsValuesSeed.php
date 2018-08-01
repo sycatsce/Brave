@@ -28,12 +28,12 @@ class StatsValuesSeed extends AbstractSeed
             [
                 "id_charaStats" => 1,
                 "id_statsNames" => 1,
-                "value" => 740
+                "value" => 1006
             ],
             [
                 "id_charaStats" => 1,
                 "id_statsNames" => 2,
-                "value" => 592
+                "value" => 740
             ],
             [
                 "id_charaStats" => 1,
@@ -43,22 +43,23 @@ class StatsValuesSeed extends AbstractSeed
             [
                 "id_charaStats" => 1,
                 "id_statsNames" => 4,
-                "value" => 308
+                "value" => 592
             ],
             [
                 "id_charaStats" => 1,
                 "id_statsNames" => 5,
-                "value" => 1006
+                "value" => 308
             ],
+
             [
                 "id_charaStats" => 2,
                 "id_statsNames" => 1,
-                "value" => 762
+                "value" => 1017
             ],
             [
                 "id_charaStats" => 2,
                 "id_statsNames" => 2,
-                "value" => 618
+                "value" => 762
             ],
             [
                 "id_charaStats" => 2,
@@ -68,22 +69,23 @@ class StatsValuesSeed extends AbstractSeed
             [
                 "id_charaStats" => 2,
                 "id_statsNames" => 4,
-                "value" => 345
+                "value" => 618
             ],
             [
                 "id_charaStats" => 2,
                 "id_statsNames" => 5,
-                "value" => 1017
+                "value" => 345
             ],
+
             [
                 "id_charaStats" => 3,
                 "id_statsNames" => 1,
-                "value" => 748
+                "value" => 1007
             ],
             [
                 "id_charaStats" => 3,
                 "id_statsNames" => 2,
-                "value" => 630
+                "value" => 748
             ],
             [
                 "id_charaStats" => 3,
@@ -93,22 +95,23 @@ class StatsValuesSeed extends AbstractSeed
             [
                 "id_charaStats" => 3,
                 "id_statsNames" => 4,
-                "value" => 344
+                "value" => 630
             ],
             [
                 "id_charaStats" => 3,
                 "id_statsNames" => 5,
-                "value" => 1007
+                "value" => 344
             ],
+
             [
                 "id_charaStats" => 4,
                 "id_statsNames" => 1,
-                "value" => 630
+                "value" => 989
             ],
             [
                 "id_charaStats" => 4,
                 "id_statsNames" => 2,
-                "value" => 688
+                "value" => 630
             ],
             [
                 "id_charaStats" => 4,
@@ -118,22 +121,23 @@ class StatsValuesSeed extends AbstractSeed
             [
                 "id_charaStats" => 4,
                 "id_statsNames" => 4,
-                "value" => 318
+                "value" => 688
             ],
             [
                 "id_charaStats" => 4,
                 "id_statsNames" => 5,
-                "value" => 989
+                "value" => 318
             ],
+
             [
                 "id_charaStats" => 5,
                 "id_statsNames" => 1,
-                "value" => 632
+                "value" => 988
             ],
             [
                 "id_charaStats" => 5,
                 "id_statsNames" => 2,
-                "value" => 728
+                "value" => 632
             ],
             [
                 "id_charaStats" => 5,
@@ -143,12 +147,12 @@ class StatsValuesSeed extends AbstractSeed
             [
                 "id_charaStats" => 5,
                 "id_statsNames" => 4,
-                "value" => 330
+                "value" => 728
             ],
             [
                 "id_charaStats" => 5,
                 "id_statsNames" => 5,
-                "value" => 988
+                "value" => 330
             ],
         ];
 

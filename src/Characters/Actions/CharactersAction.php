@@ -48,8 +48,8 @@ class CharactersAction
     public function showCharacters(ServerRequestInterface $request): string
     {
         $params = $request->getQueryParams();
-        $characters = $this->charactersRepository->getCharacters(4, $params['p'] ?? 1);
-        return $this->renderer->render('@characters' . DIRECTORY_SEPARATOR . 'index', compact('characters'));
+        $characters = $this->charactersRepository->getCharacters(12, $params['p'] ?? 1);
+        return $this->renderer->render('@characters/index', compact('characters'));
     }
 
     public function characterShow(ServerRequestInterface $request)
@@ -64,6 +64,6 @@ class CharactersAction
                 'id' => $character->id
             ]);
         }
-        return $this->renderer->render('@characters' . DIRECTORY_SEPARATOR . 'show', compact('character'));
+        return $this->renderer->render('@characters/show', compact('character'));
     }
 }

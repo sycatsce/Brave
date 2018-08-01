@@ -7,6 +7,4 @@ use function \DI\get;
 
 return [
     'characters.prefix' => '/characters',
-    CharactersModule::class => autowire()->constructorParameter('prefix', get('characters.prefix'))
-
 ];

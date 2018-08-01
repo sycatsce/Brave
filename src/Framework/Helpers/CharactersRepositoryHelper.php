@@ -4,25 +4,24 @@ namespace Framework\Helpers;
 
 trait CharactersRepositoryHelper
 {
-
-    public function retrieveAttributes(array $character)
+    public function getDatas(string $data)
     {
-        $attributes = [];
-        $attributes['stats'] = $this->getStats($character['id']);
-        if (!is_null($character['id_version'])){
-            $attributes['version'] = $this->getVersion($character['id']);
+        switch($data){
+            case 'versions':
+                return $this->getVersions();
+                break;
+            case 'affiliations':
+                return $this->getAffiliations();
+                break;
+            case 'soultraits':
+                return $this->getSoulTraits();
+                break;
+            case 'killers':
+                return $this->getKillers();
+                break;
+            case 'attributes':
+                return $this->getAttributes();
+                break;
         }
-        $attributes['affiliation'] = $this->getAffiliation($character['id']);
-        if ($character['id_affiliation2'] !== null){
-            $attributes['affiliation2'] = $this->getAffiliation($character['id'], 2);
-        }
-        $attributes['soultrait'] = $this->getSoulTrait($character['id']);
-        $attributes['attribute'] = $this->getAttribute($character['id']);
-        $attributes['killer'] = $this->getKiller($character['id']);
-        if ($character['id_killer2'] !== null){
-            $attributes['killer2'] = $this->getKiller($character['id'], 2);
-        }  
-        return $attributes;
-
     }
 }

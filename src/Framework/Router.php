@@ -29,9 +29,31 @@ class Router
      * @param callable|string $callable
      * @param string $name
      */
-    public function get(string $path, $callable, string $name)
+    public function get(string $path, $callable, ?string $name = null)
     {
         $route = new ZendRoute($path, new MiddlewareApp($callable), ['GET'], $name);
+        $this->router->addRoute($route);
+    }
+
+        /**
+     * @param string path
+     * @param callable|string $callable
+     * @param string $name
+     */
+    public function post(string $path, $callable, ?string $name = null)
+    {
+        $route = new ZendRoute($path, new MiddlewareApp($callable), ['POST'], $name);
+        $this->router->addRoute($route);
+    }
+
+    /**
+     * @param string path
+     * @param callable|string $callable
+     * @param string $name
+     */
+    public function delete(string $path, $callable, ?string $name = null)
+    {
+        $route = new ZendRoute($path, new MiddlewareApp($callable), ['DELETE'], $name);
         $this->router->addRoute($route);
     }
 

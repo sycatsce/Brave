@@ -18,7 +18,7 @@ Released   : 20130902
 		<meta name="description" content="{% block description%} {% endblock %}" />
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700|Archivo+Narrow:400,700" rel="stylesheet" type="text/css">
 		<link href="/assets/css/default.css" rel="stylesheet" type="text/css" media="all" />
-
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	</head>
 
 	<body>
@@ -34,6 +34,7 @@ Released   : 20130902
 						<li><a href="{{ path('homepage') }}" title="Home"> Home </a></li>
 						<li><a href="{{ path('brave.characters') }}" title="Characters"> Characters </a></li>
 						<li><a href="#" title="Gameplays"> Gameplays </a></li>
+						<li><a href="{{ path('admin.brave.characters') }}" title='Admin'> Admin </a></li>
 					</ul>
 				</div>
 			</div>
@@ -46,4 +47,7 @@ Released   : 20130902
 			<p>&copy; Untitled. All rights reserved. Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>. Photos by <a href="http://fotogrph.com/">Fotogrph</a>.</p>
 		</div>
 	</body>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="/assets/js/script.js"></script>
 </html>

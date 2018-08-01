@@ -6,6 +6,8 @@ use Framework\Renderer\RendererInterface;
 use Framework\Module as GlobalModule;
 use App\Characters\Actions\CharactersAction;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Container\ContainerInterface;
+use App\Characters\Actions\AdminCharactersAction;
 
 class Module extends GlobalModule
 {
@@ -21,12 +23,25 @@ class Module extends GlobalModule
      */
     private $renderer;
 
-    public function __construct(string $prefix, Router $router, RendererInterface $renderer)
+    public function __construct(ContainerInterface $container)
     {
-        $this->renderer = $renderer;
-        $this->renderer->addPath('characters', __DIR__ . '/views');
+        $container->get(RendererInterface::class)->addPath('characters', __DIR__ . '/views');
 
-        $router->get($prefix, CharactersAction::class, 'brave.characters');
-        $router->get($prefix.'/{name:[a-z\-]+}-{id:\d+}', CharactersAction::class, 'character.show');
+        $router = $container->get(Router::class);
+        $router->get($container->get('characters.prefix'), CharactersAction::class, 'brave.characters');
+        $router->get($container->get('characters.prefix').'/{name:[a-z\-]+}-{id:\d+}', CharactersAction::class, 'character.show');
+
+        if($container->has('admin.prefix')){
+            $prefix = $container->get('admin.prefix');
+            $router->get($prefix. '/characters', AdminCharactersAction::class, 'admin.brave.characters');
+
+            $router->get($prefix. '/characters/{id:\d+}', AdminCharactersAction::class, 'admin.character.edit');
+            $router->post($prefix. '/characters/{id:\d+}', AdminCharactersAction::class);
+
+            $router->get($prefix. '/characters/create', AdminCharactersAction::class, 'admin.character.create');
+            $router->post($prefix. '/characters/create', AdminCharactersAction::class);
+
+            $router->delete($prefix. '/characters/delete/{id:\d+}', AdminCharactersAction::class, 'admin.character.delete');
+        }
     }
 }

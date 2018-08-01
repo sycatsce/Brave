@@ -27,7 +27,8 @@ return [
     \PDO::class => function(ContainerInterface $container){
         return new PDO('mysql:host=' . $container->get('database.host') . ';dbname=' . $container->get('database.name'), 
             $container->get('database.username'), 
-            $container->get('database.password')
+            $container->get('database.password'),
+            [ PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ]
         );
     }
 ];

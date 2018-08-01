@@ -19,7 +19,10 @@ class TwigCharacterExtension extends \Twig_Extension{
             new \Twig_SimpleFunction('getStats', [$this, 'getStats']),
             new \Twig_SimpleFunction('getAffiliation', [$this, 'getAffiliation']),
             new \Twig_SimpleFunction('getKiller', [$this, 'getKiller']),
-            new \Twig_SimpleFunction('getSoulTrait', [$this, 'getSoulTrait'])
+            new \Twig_SimpleFunction('getSoulTrait', [$this, 'getSoulTrait']),
+            new \Twig_SimpleFunction('getAttribute', [$this, 'getAttribute']),
+
+            new \Twig_SimpleFunction('getDatas', [$this, 'getDatas']),
         ];
     }
 
@@ -46,5 +49,14 @@ class TwigCharacterExtension extends \Twig_Extension{
     public function getSoulTrait($characterId)
     {
         return $this->characterRepository->getSoulTrait($characterId);
+    }
+
+    public function getAttribute($characterId)
+    {
+        return $this->characterRepository->getAttribute($characterId);
+    }
+    
+    public function getDatas(string $data){
+        return $this->characterRepository->getDatas($data);
     }
 }

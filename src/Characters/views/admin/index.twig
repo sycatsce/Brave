@@ -1,0 +1,31 @@
+{% extends 'layout.twig' %}
+
+{% block title "(Admin) Characters -" %}
+
+{% block content %}
+	<div id="content">
+        {% for character in characters %}
+            <div class="post">
+                <h2 class="title"><a href="{{ path('character.show', {name: adjustName(character.name), id: character.id}) }}"> {{ character.name }} </a> 
+                <img src='/assets/images/attributes/{{ getAttribute(character.id)|lower }}.png' style='width:20px; height:20px;'/></h2>
+                {% if character.id_version is not null %}
+                    <span class="date">{{ getVersion(character.id) }}</span>
+                {% else %}
+                    <div style="clear: both;">&nbsp;</div>
+                {% endif %}
+                <div style="clear: both;">&nbsp;</div>
+                <form action="{{ path('admin.character.delete', {id: character.id}) }}" method="post" onsubmit="return confirm('u sure nigga?')">
+                <a class='button2' href='{{ path('admin.character.edit', {id: character.id}) }}'> Edit </a>
+                    <input type="hidden" name="_METHOD" value="DELETE">
+                    <button type="submit" class='button3'> Delete </a>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div style='margin-left:5%; margin-top:100px; height: 50px;'> <a href='{{path('admin.character.create')}}' class='button'>+ Add</a></div>
+
+    <div class='pagerfanta'>
+    {{ paginate(characters, 'admin.brave.characters') }}
+    </div>
+{% endblock %}
