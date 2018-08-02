@@ -8,7 +8,6 @@ use App\Characters\Entity\Character;
 use Pagerfanta\Pagerfanta;
 use Framework\Database\Paginate;
 
-
 class CharactersRepository
 {
 
@@ -50,12 +49,12 @@ class CharactersRepository
 
     public function getAffiliation(int $id, int $affiliationNb = 1)
     {
-        if ($affiliationNb == 1){
+        if ($affiliationNb == 1) {
             $query = $this->pdo->prepare("SELECT name FROM affiliations WHERE id = (SELECT id_affiliation FROM characters WHERE id = ?)");
             $query->execute([$id]);
             $affiliation = $query->fetch(\PDO::FETCH_OBJ);
             return $affiliation->name;
-        } else if ($affiliationNb == 2){
+        } elseif ($affiliationNb == 2) {
             $query = $this->pdo->prepare("SELECT name FROM affiliations WHERE id = (SELECT id_affiliation2 FROM characters WHERE id = ?)");
             $query->execute([$id]);
             $affiliation = $query->fetch(\PDO::FETCH_OBJ);
@@ -81,12 +80,12 @@ class CharactersRepository
 
     public function getKiller(int $id, int $killerNb = 1)
     {
-        if ($killerNb == 1){
+        if ($killerNb == 1) {
             $query = $this->pdo->prepare("SELECT name, value FROM killers WHERE id = (SELECT id_killer FROM characters WHERE id = ?)");
             $query->execute([$id]);
             $killer = $query->fetch(\PDO::FETCH_OBJ);
             return array("name" => $killer->name, "value" => $killer->value);
-        } else if ($killerNb == 2){
+        } elseif ($killerNb == 2) {
             $query = $this->pdo->prepare("SELECT name, value FROM killers WHERE id = (SELECT id_killer2 FROM characters WHERE id = ?)");
             $query->execute([$id]);
             $killer = $query->fetch(\PDO::FETCH_OBJ);
@@ -133,19 +132,19 @@ class CharactersRepository
      */
     public function update(int $id, array $params): bool
     {
-        if( $params['id_killer2'] == ''){
+        if ($params['id_killer2'] == '') {
             unset($params['id_killer2']);
             $s = $this->pdo->prepare("UPDATE characters SET id_killer2 = null WHERE id = :id");
             $s->execute(['id' => $id]);
         }
 
-        if( $params['id_affiliation2'] == ''){
+        if ($params['id_affiliation2'] == '') {
             unset($params['id_affiliation2']);
             $s = $this->pdo->prepare("UPDATE characters SET id_affiliation2 = null WHERE id = :id");
             $s->execute(['id' => $id]);
         }
 
-        $fieldQuery = join(', ', array_map(function($field) {
+        $fieldQuery = join(', ', array_map(function ($field) {
             return "$field = :$field";
         }, array_keys($params)));
         
@@ -160,25 +159,25 @@ class CharactersRepository
     {
 
         $statement = $this->pdo->prepare("UPDATE statsvalues SET value = :statVal WHERE id_statsNames = :statId and id_charaStats = :charaId");
-        foreach ($stats as $key=>$stat){
+        foreach ($stats as $key => $stat) {
             $statement->execute(['statVal' => $stat, 'statId' => substr($key, -1), 'charaId' => $id]);
         }
     }
 
     public function create(array $params, array $stats)
     {
-        $fieldQuery = join(', ', array_map(function($field) {
+        $fieldQuery = join(', ', array_map(function ($field) {
             return ":$field";
         }, array_keys($params)));
 
-        $cols = join(', ', array_map(function($field){
-            return '`'. $field . '`'; 
+        $cols = join(', ', array_map(function ($field) {
+            return '`'. $field . '`';
         }, array_keys($params)));
 
         $statement = $this->pdo->prepare("INSERT INTO `sycatsce`.`characters` ($cols) VALUES ($fieldQuery)");
-        if ( true == $statement->execute($params)){
+        if (true == $statement->execute($params)) {
             $id = $this->pdo->lastInsertId();
-            foreach ($stats as $stat=>$val){
+            foreach ($stats as $stat => $val) {
                 $statement = $this->pdo->prepare("INSERT INTO `sycatsce`.`statsvalues` (`id_charaStats`, `id_statsNames`, `value`) VALUES (:idChara, :idStat, :val)");
                 $statement->execute([
                     'idChara' => $id,
@@ -192,7 +191,7 @@ class CharactersRepository
     public function delete(int $id)
     {
         $statement = $this->pdo->prepare("DELETE FROM `sycatsce`.`statsvalues` WHERE `id_charaStats` = ?");
-        if($statement->execute([$id])){
+        if ($statement->execute([$id])) {
             $statement = $this->pdo->prepare("DELETE FROM `sycatsce`.`characters` WHERE `id` = ?");
             return $statement->execute([$id]);
         }

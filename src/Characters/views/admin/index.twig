@@ -14,10 +14,10 @@
                     <div style="clear: both;">&nbsp;</div>
                 {% endif %}
                 <div style="clear: both;">&nbsp;</div>
-                <form action="{{ path('admin.character.delete', {id: character.id}) }}" method="post" onsubmit="return confirm('u sure nigga?')">
-                <a class='button2' href='{{ path('admin.character.edit', {id: character.id}) }}'> Edit </a>
+                <form style='display:inline' action="{{ path('admin.character.delete', {id: character.id}) }}" method="post" onsubmit="return confirm('u sure nigga?')">
+                    <a style='margin-right:5px;' class='button2' href='{{ path('admin.character.edit', {id: character.id}) }}'> Edit </a>
                     <input type="hidden" name="_METHOD" value="DELETE">
-                    <button type="submit" class='button3'> Delete </a>
+                    <a type="submit" class='button3'> Delete </a>
                 </form>
             </div>
         {% endfor %}

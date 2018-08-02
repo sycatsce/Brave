@@ -4,8 +4,8 @@ namespace App\Characters\Twig;
 
 use App\Characters\Repository\CharactersRepository;
 
-
-class TwigCharacterExtension extends \Twig_Extension{
+class TwigCharacterExtension extends \Twig_Extension
+{
     
     public function __construct(CharactersRepository $characterRepository)
     {
@@ -56,7 +56,8 @@ class TwigCharacterExtension extends \Twig_Extension{
         return $this->characterRepository->getAttribute($characterId);
     }
     
-    public function getDatas(string $data){
+    public function getDatas(string $data)
+    {
         return $this->characterRepository->getDatas($data);
     }
 }

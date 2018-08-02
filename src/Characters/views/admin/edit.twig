@@ -50,7 +50,7 @@
 
                 <div style="clear: both;">&nbsp;</div>
 
-                <img style="border:solid; width:675px; height:337px;" src="/assets/images/characters/{{ character.image }}l"/>
+                <img style="border:solid; width:675px; height:337px;" src="/assets/images/characters/{{ character.image|lower|replace({' ':'_'}) }}"/>
             </div>
 
             <div class="right-part">

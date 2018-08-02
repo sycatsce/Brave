@@ -6,8 +6,8 @@ use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\DefaultView;
 use Framework\Router;
 
-
-class PagerFantaExtension extends \Twig_Extension{
+class PagerFantaExtension extends \Twig_Extension
+{
 
     /**
      * @var Router
@@ -28,14 +28,13 @@ class PagerFantaExtension extends \Twig_Extension{
     public function paginate(Pagerfanta $paginatedResults, string $route, array $queryArgs = []) : string
     {
         $view = new DefaultView();
-        return $view->render($paginatedResults, function($page) use ($route, $queryArgs){
+        return $view->render($paginatedResults, function ($page) use ($route, $queryArgs) {
 
-            if ($page > 1 ) {
+            if ($page > 1) {
                 $queryArgs['p'] = $page;
             }
 
             return $this->router->generateUri($route, [], $queryArgs);
         });
-
     }
 }

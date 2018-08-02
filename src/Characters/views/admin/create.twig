@@ -3,7 +3,7 @@
 {% block title "(Admin) Create Character - " %}
 
 {% block content %}
-        <form method='post' action='{{ path("admin.character.create") }}'>
+        <form method='post' action='{{ path("admin.character.create") }}' enctype="multipart/form-data">
         <div class="character">
             <div style='width:100%; text-align:center; margin:15px'>
                 <button class='button' type='submit'> Create </button>
@@ -42,6 +42,8 @@
 
                 <div style="clear: both;">&nbsp;</div>
 
+                <label for="imageToUpload"> Character's image </label>
+                <input type="file" id="imageToUpload" name="imageToUpload" id="imageToUpload">
             </div>
 
             <div class="right-part">

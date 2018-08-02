@@ -7,7 +7,8 @@ use Pagerfanta\Adapter\AdapterInterface;
 /**
  * Paginates characters
  */
-class Paginate implements AdapterInterface{
+class Paginate implements AdapterInterface
+{
 
     /**
      * @var \PDO
@@ -28,7 +29,7 @@ class Paginate implements AdapterInterface{
     {
         $this->pdo = $pdo;
         $this->characters = $characters;
-        $this->countQuery = $countQuery;    
+        $this->countQuery = $countQuery;
     }
 
     public function getNbResults(): int

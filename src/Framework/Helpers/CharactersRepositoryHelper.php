@@ -6,7 +6,7 @@ trait CharactersRepositoryHelper
 {
     public function getDatas(string $data)
     {
-        switch($data){
+        switch ($data) {
             case 'versions':
                 return $this->getVersions();
                 break;

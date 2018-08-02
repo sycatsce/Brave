@@ -2,7 +2,8 @@
 
 namespace App\Characters\Entity;
 
-class Character{
+class Character
+{
     
     public $id;
 
@@ -31,5 +32,4 @@ class Character{
     public $release_date;
 
     public $created_at;
-
 }

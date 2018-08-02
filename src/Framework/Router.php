@@ -78,7 +78,7 @@ class Router
     public function generateUri(string $routeName, array $params = [], array $queryParams = []) : ?string
     {
         $uri = $this->router->generateUri($routeName, $params);
-        if (!empty($queryParams)){
+        if (!empty($queryParams)) {
             return $uri . '?' .http_build_query($queryParams);
         }
         return $uri;

@@ -31,7 +31,7 @@ class Module extends GlobalModule
         $router->get($container->get('characters.prefix'), CharactersAction::class, 'brave.characters');
         $router->get($container->get('characters.prefix').'/{name:[a-z\-]+}-{id:\d+}', CharactersAction::class, 'character.show');
 
-        if($container->has('admin.prefix')){
+        if ($container->has('admin.prefix')) {
             $prefix = $container->get('admin.prefix');
             $router->get($prefix. '/characters', AdminCharactersAction::class, 'admin.brave.characters');
 

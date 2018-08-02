@@ -30,7 +30,7 @@ class AdminAction
 
     public function __invoke(ServerRequestInterface $request)
     {
-        if ( '/' == $request->getUri()->getPath() ){
+        if ('/' == $request->getUri()->getPath()) {
             return $this->home($request);
         }
     }
